@@ -21,7 +21,6 @@ def BorrarContenido():
     VideoJuegos.set(False)
     Obligacion.set(None)
 
-
 def guardar_datos():
 
     with open("Listas.csv", "r") as file:
@@ -44,8 +43,7 @@ def guardar_datos():
         with open("Listas.csv","a") as file:
             file.write(f'{Nombre},{APaterno},{AMaterno},{Correo},{Numero},{LeerOp},{MusicaOp},{VideoJuegosOp},{Obli},{SelecEstados}\n') 
         BorrarContenido()
-    
-    tv.insert(parent="", index="end", iid=random.randint(1,1000), text=random.randint(1,1000), values=(Nombre, APaterno, AMaterno, Correo, Numero, LeerOp, MusicaOp, VideoJuegosOp,SelecEstados))
+        TablaDatos.insert(parent="", index="end", iid=random.randint(0,1000), text=random.randint(0,1000), values=(Nombre, APaterno, AMaterno, Correo, Numero, LeerOp, MusicaOp, VideoJuegosOp,Obli,SelecEstados))
 
 #---------------------------------PADRE--------------------------------------
 
@@ -132,9 +130,9 @@ ttk.Button(FrameDatos3, text="Borrar", command=BorrarContenido).grid(column=1, r
 
 #----------------------------------Frame Derecha 1-------------------------------------
 
-RadioEst = ttk.Radiobutton(FrameDatos4, text="Estudiante", variable=Obligacion, value="Estudiante", width="10").grid(column=0, row=0, sticky=(N)) 
-RadioEmp = ttk.Radiobutton(FrameDatos4, text="Empleado", variable=Obligacion, value="Empleado", width="10").grid(column=0 , row=1, sticky=(N)) 
-RadioDesemp = ttk.Radiobutton(FrameDatos4, text="Desempleado", variable=Obligacion, value="Desempleado", width="10").grid(column=0, row=2, sticky=(N)) 
+RadioEst = ttk.Radiobutton(FrameDatos4, text="Estudiante", variable=Obligacion, value="Estudiante", width="12").grid(column=0, row=0, sticky=(N)) 
+RadioEmp = ttk.Radiobutton(FrameDatos4, text="Empleado", variable=Obligacion, value="Empleado", width="12").grid(column=0 , row=1, sticky=(N)) 
+RadioDesemp = ttk.Radiobutton(FrameDatos4, text="Desempleado", variable=Obligacion, value="Desempleado", width="12").grid(column=0, row=2, sticky=(N)) 
 
 #----------------------------------Frame Derecha 2-------------------------------------
 
@@ -147,7 +145,6 @@ comboEstados['values'] = ("Aguascalientes", "Baja California", "Baja California 
                         "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", 
                         "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatan", "Zacatecas")
 
-
 #----------------------------------Ventana Tabla------------------------------------------
 Tabla = Tk()
 Tabla.title("Tabla Lista de Datos (CSV)")
@@ -155,32 +152,40 @@ Tabla.title("Tabla Lista de Datos (CSV)")
 FrameTabla = ttk.Frame(Tabla)
 FrameTabla.grid(column=0, row=0)
 
-tv = ttk.Treeview(FrameTabla, columns=("nombreVar","APaternoVar", "AMaternoVar", "CorreoVar", "NumeroMovilVar", "Leer", "Musica", "VideoJuegos", "Obligacion", "Estados"))
-tv.grid(column=0, row=0, padx=0, pady=0)
-tv.column("#0",width=20)
-tv.column("nombreVar",width=130, anchor=CENTER)
-tv.column("APaternoVar",width=130, anchor=CENTER)
-tv.column("AMaternoVar",width=130, anchor=CENTER)
-tv.column("CorreoVar",width=130, anchor=CENTER)
-tv.column("NumeroMovilVar",width=130, anchor=CENTER)
-tv.column("Leer",width=130, anchor=CENTER)
-tv.column("Musica",width=130, anchor=CENTER)
-tv.column("VideoJuegos",width=130, anchor=CENTER)
-tv.column("Obligacion",width=130, anchor=CENTER)
-tv.column("Estados",width=130, anchor=CENTER)
+TablaDatos = ttk.Treeview(FrameTabla, columns=("nombre", "a_paterno", "a_materno", "correo", "movil", "ocupacion", "aficionLeer", "aficionMusica", "aficionVideojuegos", "estado"))
 
-tv.heading("#0", text="ID", anchor=CENTER)
-tv.heading("nombreVar", text="Nombre", anchor=CENTER)
-tv.heading("APaternoVar", text="APaterno", anchor=CENTER)
-tv.heading("AMaternoVar", text="AMaterno", anchor=CENTER)
-tv.heading("CorreoVar", text="Correo", anchor=CENTER)
-tv.heading("NumeroMovilVar", text="Movil", anchor=CENTER)
-tv.heading("Leer", text="Leer", anchor=CENTER)
-tv.heading("Musica", text="Musica", anchor=CENTER)
-tv.heading("VideoJuegos", text="VideoJuegos", anchor=CENTER)
-tv.heading("Obligacion", text="Obligacion", anchor=CENTER)
-tv.heading("Estados", text="Estado", anchor=CENTER)
+    # Definir encabezados de columna
+TablaDatos.heading("#0", text="ID")
+TablaDatos.heading("nombre", text="Nombre")
+TablaDatos.heading("a_paterno", text="Apellido paterno")
+TablaDatos.heading("a_materno", text="Apellido materno")
+TablaDatos.heading("correo", text="Correo")
+TablaDatos.heading("movil", text="Móvil")
+TablaDatos.heading("ocupacion", text="Ocupación")
+TablaDatos.heading("aficionLeer", text="Lee")
+TablaDatos.heading("aficionMusica", text="Escucha música")
+TablaDatos.heading("aficionVideojuegos", text="Juega videojuegos")
+TablaDatos.heading("estado", text="Estado")
+
+    # Definir anchos de columna
+TablaDatos.column("#0", width=50)
+TablaDatos.column("nombre", width=100)
+TablaDatos.column("a_paterno", width=120)
+TablaDatos.column("a_materno", width=120)
+TablaDatos.column("correo", width=200)
+TablaDatos.column("movil", width=100)
+TablaDatos.column("ocupacion", width=120)
+TablaDatos.column("aficionLeer", width=100)
+TablaDatos.column("aficionMusica", width=120)
+TablaDatos.column("aficionVideojuegos", width=120)
+TablaDatos.column("estado", width=120)
+
+with open('Listas.csv', 'r') as file:
+    lineas = file.readlines()
+    for i, linea in enumerate(lineas):
+        lista = linea.strip().split(",")
+        TablaDatos.insert(parent="", index="end", iid = i, text = i, values=(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], lista[6], lista[7], lista[8], lista[9]))
+
+TablaDatos.pack()
 
 root.mainloop()
-
-
